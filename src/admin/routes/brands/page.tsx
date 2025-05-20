@@ -1,16 +1,18 @@
 import { defineRouteConfig } from "@medusajs/admin-sdk";
 import { TagSolid } from "@medusajs/icons";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { sdk } from "../../lib/sdk";
 import { useMemo, useState } from "react";
 import {
   Container,
   Heading,
+  Button,
   createDataTableColumnHelper,
   DataTable,
   DataTablePaginationState,
   useDataTable,
 } from "@medusajs/ui";
+import { CreateBrandModal } from "./CreateBrandModal";
 
 const columnHelper = createDataTableColumnHelper<Brand>();
 
@@ -41,6 +43,8 @@ const BrandsPage = () => {
     pageSize: limit,
     pageIndex: 0,
   });
+  const [open, setOpen] = useState(false);
+  const queryClient = useQueryClient();
 
   const offset = useMemo(() => {
     return pagination.pageIndex * limit;
@@ -69,15 +73,22 @@ const BrandsPage = () => {
     },
   });
 
+  // Handler to refetch brands after creation
+  const handleCreated = () => {
+    queryClient.invalidateQueries({ queryKey: [["brands", limit, offset]] });
+  };
+
   return (
     <Container className="divide-y p-0">
       <DataTable instance={table}>
         <DataTable.Toolbar className="flex flex-col items-start justify-between gap-2 md:flex-row md:items-center">
           <Heading>Brands</Heading>
+          <Button onClick={() => setOpen(true)} variant="primary">Create Brand</Button>
         </DataTable.Toolbar>
         <DataTable.Table />
         <DataTable.Pagination />
       </DataTable>
+      <CreateBrandModal open={open} onClose={() => setOpen(false)} onCreated={handleCreated} />
     </Container>
   );
 };
