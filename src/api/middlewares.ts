@@ -3,9 +3,10 @@ import {
   validateAndTransformBody,
   validateAndTransformQuery,
 } from "@medusajs/framework/http";
-import { PostAdminCreateBrand } from "./admin/brands/validators";
+import { PostAdminCreateBrand, PutAdminUpdateBrand } from "./admin/brands/validators";
 import { z } from "zod";
 import { createFindParams } from "@medusajs/medusa/api/utils/validators";
+import { PostAdminCreateExtProductCategories } from "./admin/extend-product-categories/validators";
 
 export const GetBrandsSchema = createFindParams();
 
@@ -15,6 +16,16 @@ export default defineMiddlewares({
       matcher: "/admin/brands",
       method: "POST",
       middlewares: [validateAndTransformBody(PostAdminCreateBrand)],
+    },
+    {
+      matcher: "/admin/extend-product-categories",
+      method: "POST",
+      middlewares: [validateAndTransformBody(PostAdminCreateExtProductCategories)],
+    },
+    {
+      matcher: "/admin/brands/:id",
+      method: "PUT",
+      middlewares: [validateAndTransformBody(PutAdminUpdateBrand)],
     },
     {
       matcher: "/admin/products",
@@ -32,6 +43,15 @@ export default defineMiddlewares({
           isList: true,
         }),
       ],
+    },
+    {
+      matcher: "/admin/product-categories",
+      method:  "POST",
+      additionalDataValidator: {
+        icon: z.string().optional(),
+        meta_title: z.string().optional(),
+        meta_description: z.string().optional(),
+      },
     },
   ],
 });

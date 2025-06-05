@@ -1,5 +1,5 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
-import { createBrandWorkflow } from "../../../workflows/create-brand";
+import { createBrandWorkflow } from "../../../workflows/brand/create-brand";
 import { z } from "zod";
 import { PostAdminCreateBrand } from "./validators";
 
@@ -32,3 +32,5 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
     offset: skip,
   });
 };
+
+

@@ -15,51 +15,8 @@
           "nullable": false,
           "mappedType": "text"
         },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        },
-        "status": {
-          "name": "status",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "default": "'draft'",
-          "enumItems": [
-            "draft",
-            "proposed",
-            "published",
-            "rejected"
-          ],
-          "mappedType": "enum"
-        },
         "icon": {
           "name": "icon",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        },
-        "handle": {
-          "name": "handle",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        },
-        "description": {
-          "name": "description",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -118,20 +75,20 @@
           "mappedType": "datetime"
         }
       },
-      "name": "brand",
+      "name": "ext_category",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "IDX_brand_deleted_at",
+          "keyName": "IDX_ext_category_deleted_at",
           "columnNames": [],
           "composite": false,
           "constraint": false,
           "primary": false,
           "unique": false,
-          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_brand_deleted_at\" ON \"brand\" (deleted_at) WHERE deleted_at IS NULL"
+          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_ext_category_deleted_at\" ON \"ext_category\" (deleted_at) WHERE deleted_at IS NULL"
         },
         {
-          "keyName": "brand_pkey",
+          "keyName": "ext_category_pkey",
           "columnNames": [
             "id"
           ],
